@@ -7,56 +7,92 @@ Zenn / Qiita 等の外部技術ブログ向け記事ソース。
 ## なぜ独立リポジトリなのか
 
 - 本体プロダクト (`matching-app-template` 他) は private で、外部連携サービスに pull 権限を与えたくない
-- 記事用の `articles/` フォルダだけを Zenn に渡せば、本体ソースは完全に隔離される
+- 記事用フォルダだけを Zenn / Qiita に渡せば、本体ソースは完全に隔離される
 - 公開・非公開の判断ミスでソース流出する事故を構造的に防ぐ
+- このリポジトリは公開（public）。本体は引き続き private のまま
 
 ## ディレクトリ構成
 
 ```
 cosoado-lab-articles/
-├── articles/          # Zenn 記事 (1 ファイル = 1 記事)
-│   └── *.md           # frontmatter 必須
-├── books/             # (今後使う場合) Zenn の本
+├── articles/                # Zenn 連携用（Zenn が main から自動取得）
+│   ├── _drafts/            # 執筆中・レビュー前の下書き（Zenn は published: false で無視）
+│   └── <slug>.md           # レビュー合格済み記事
+├── qiita/                   # Qiita 用（GHA cron で API 投稿）
+│   ├── _drafts/            # 執筆中・レビュー前の下書き
+│   └── <slug>.md           # レビュー合格済み記事（投稿後 frontmatter に qiita_id が付く）
+├── scripts/
+│   └── post-to-qiita.mjs   # Qiita API 投稿スクリプト
+├── .github/workflows/
+│   └── qiita-publish.yml   # 毎日 10:00 JST に新規記事をチェックして投稿
 └── README.md
 ```
 
-## Zenn 連携セットアップ (1 度だけ)
+## Zenn 連携（1 度だけ設定）
 
-1. [Zenn](https://zenn.dev/) でアカウント作成
-2. Zenn ダッシュボード → **GitHub からのデプロイ** → **連携リポジトリを追加**
+1. [Zenn](https://zenn.dev/) にログイン
+2. ダッシュボード → **GitHub からのデプロイ** → **連携リポジトリを追加**
 3. リポジトリ `Cosoado/cosoado-lab-articles` を選択
 4. 連携対象ブランチ: `main`
-5. Zenn が GitHub App 経由で `articles/` フォルダだけを読みに来る (他は触らない)
-6. `published: true` のファイルが自動公開される
+5. `articles/` 直下の `published: true` ファイルが自動公開される
 
-## 記事フォーマット (frontmatter 必須)
+## Qiita 連携（1 度だけ設定）
+
+1. [Qiita 設定 → アプリケーション](https://qiita.com/settings/applications) で個人用アクセストークンを発行
+   - スコープ: **read_qiita** + **write_qiita**
+2. GitHub の `Settings → Secrets and variables → Actions` で `QIITA_TOKEN` を追加
+3. 以降は `qiita/<slug>.md` (published: true) を main に push するだけで GHA が翌日投稿
+
+## Zenn 記事 frontmatter
 
 ```yaml
 ---
 title: "記事タイトル"
 emoji: "🎯"
-type: "tech"          # tech (技術) or idea (アイデア)
+type: "tech"           # tech (技術) or idea (アイデア)
 topics: ["nextjs", "supabase"]   # 5 個まで
-published: false      # true で公開、false で下書き
+published: false       # true で公開、false で下書き
 ---
-
-(本文 Markdown)
 ```
 
-## 公開フロー
+## Qiita 記事 frontmatter
 
-1. `articles/<slug>.md` を編集 (`published: false` で下書き)
-2. プレビュー: `npx zenn preview` (要 zenn-cli)
-3. `published: true` に変更
-4. `git push origin main` → Zenn 側で数秒以内に公開
+```yaml
+---
+title: "記事タイトル"
+tags: ["Next.js", "Supabase", "個人開発"]   # Qiita のタグは大文字小文字区別あり
+published: true        # 自動投稿対象にする場合 true
+qiita_id:              # 投稿後にスクリプトが自動で書き戻す
+qiita_url:             # 投稿後にスクリプトが自動で書き戻す
+---
+```
+
+## 公開フロー（自動化）
+
+```
+[執筆] articles/_drafts/<slug>.md または qiita/_drafts/<slug>.md
+   ↓
+[レビュー] .company/reviews/rubrics/article-review.md で採点
+   ↓
+[100/100 合格時のみ] _drafts/ から直下へ git mv
+   ↓
+[自動公開]
+  Zenn  → main に push → 数秒で公開
+  Qiita → 翌 10:00 JST に GHA が API POST（1 回 1 件まで安全策）
+```
 
 ## 撤回・更新
 
-- `published: false` に戻して push → Zenn 側で「下書き」状態に戻る
-- 本文修正 + push → Zenn 側で更新される (URL は維持される)
+- `published: false` に戻して push → Zenn 側で「下書き」状態に戻る（Qiita は手動非公開）
+- 本文修正 + push → Zenn は更新即反映、Qiita は qiita_id がある場合のみ PATCH
 
-## 現在の記事
+## ローカルプレビュー（任意）
 
-| ファイル | タイトル | 状態 |
-|---|---|---|
-| `articles/3-matching-apps-one-codebase.md` | 1 つの env var で 3 つのマッチングアプリを量産した話 | 下書き (published: false) |
+```bash
+npx zenn preview
+```
+
+## 記事の単位ルール
+
+オーナー方針: **1 投稿 1 技術トピック**。詰めすぎず、部分部分で部分部分の技術にフォーカスする。
+記事ネタのバックログは [.company/marketing/strategies/zenn-qiita-calendar.md](https://github.com/Cosoado/cosoado-lab-articles) 側（private）で管理。
