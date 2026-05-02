@@ -19,10 +19,39 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { spawnSync } from 'node:child_process';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = path.resolve(__dirname, '..');
 const QIITA_DIR = path.join(REPO_ROOT, 'qiita');
+
+// 投稿前に必ずバリデーターを通す（GHA でも事前ステップで走らせるが、二重防御）
+function runValidator() {
+  const r = spawnSync(process.execPath, [path.join(__dirname, 'validate-articles.mjs')], {
+    stdio: 'inherit',
+  });
+  if (r.status !== 0) {
+    console.error('Article validator failed; aborting publish.');
+    process.exit(1);
+  }
+}
+
+// Body 内の secret パターン二重検査（validator と同じ規則の subset、fail-safe）
+const HARD_BLOCK_PATTERNS = [
+  /AKIA[0-9A-Z]{16}/,
+  /\bgh[posru]_[A-Za-z0-9]{36,}\b/,
+  /\bxox[abopr]-[A-Za-z0-9-]{10,}\b/,
+  /\b(sk|pk|rk)_(live|test)_[A-Za-z0-9]{20,}\b/,
+  /\bAIza[0-9A-Za-z_-]{35}\b/,
+  /postgres(?:ql)?:\/\/[^\s'")]+/i,
+  /\beyJ[A-Za-z0-9_-]{10,}\.eyJ[A-Za-z0-9_-]{10,}\.[A-Za-z0-9_-]{10,}\b/,
+];
+function bodyContainsSecret(body) {
+  for (const re of HARD_BLOCK_PATTERNS) {
+    if (re.test(body)) return re.toString();
+  }
+  return null;
+}
 const QIITA_API = 'https://qiita.com/api/v2';
 
 const TOKEN = process.env.QIITA_TOKEN;
@@ -82,6 +111,8 @@ async function qiitaRequest(method, pathSuffix, body) {
 }
 
 async function main() {
+  runValidator();
+
   if (!fs.existsSync(QIITA_DIR)) {
     console.log('No qiita/ directory; nothing to do.');
     return;
@@ -98,6 +129,11 @@ async function main() {
     if (meta.published !== true && meta.published !== 'true') {
       console.log(`SKIP (draft): ${f}`);
       continue;
+    }
+    const secretHit = bodyContainsSecret(raw);
+    if (secretHit) {
+      console.error(`ABORT: ${f} contains a hard-block secret pattern (${secretHit})`);
+      process.exit(1);
     }
     const tags = (Array.isArray(meta.tags) ? meta.tags : []).map(name => ({ name, versions: [] }));
     const payload = {

@@ -5,30 +5,47 @@ name: Qiita auto-publish
 #   - workflow_dispatch: 手動実行可
 # 安全策:
 #   - スクリプト側で 1 回の実行で 1 件のみ投稿
-#   - レビューレポートが未合格の記事は skip
-#   - frontmatter の published が true の記事のみ対象
-#   - 投稿後は qiita_id を frontmatter に書き戻して commit
+#   - レビュー未合格は qiita/_drafts/ に置く運用、qiita/ 直下のみ拾う
+#   - validate-articles.mjs で frontmatter / SEO / secret パターンを事前検査
+#   - GHA actions は SHA ピン留め（supply chain 攻撃対策）
+#   - permissions は default read-only、job 単位で contents:write のみ付与
+#   - concurrency で並列実行禁止（重複投稿事故の防止）
 
 on:
   schedule:
     - cron: '0 1 * * *'
   workflow_dispatch:
 
+# 既定で全パーミッションを read-only にする（明示的に上げた job のみ書ける）
 permissions:
-  contents: write
+  contents: read
+
+concurrency:
+  group: qiita-publish
+  cancel-in-progress: false
 
 jobs:
   publish:
     runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: write
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        # actions/checkout@v4 — SHA pinned for supply chain safety
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5
         with:
-          fetch-depth: 0
+          fetch-depth: 1
+          persist-credentials: true
 
-      - name: Use Node.js
-        uses: actions/setup-node@v4
+      - name: Use Node.js 24 LTS
+        # actions/setup-node@v4 — SHA pinned
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
         with:
-          node-version: '20'
+          node-version: '24'
+
+      - name: Validate articles (frontmatter / SEO / secret scan)
+        run: node scripts/validate-articles.mjs
 
       - name: Run Qiita publisher
         env:
@@ -37,9 +54,10 @@ jobs:
 
       - name: Commit qiita_id back if posted
         run: |
+          set -euo pipefail
           if [[ -n "$(git status --porcelain qiita/)" ]]; then
             git config user.name "github-actions[bot]"
-            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
             git add qiita/
             git commit -m "chore: record qiita_id after successful POST"
             git push
