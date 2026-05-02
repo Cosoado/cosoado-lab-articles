@@ -2,8 +2,8 @@
 title: "Vercel で 1 リポジトリを 4 プロジェクトに紐付け、env var だけで別アプリ化する実例"
 tags: ["Vercel", "Next.js", "個人開発", "マルチテナント", "デプロイ"]
 published: true
-qiita_id:
-qiita_url:
+qiita_id: "893d20329cf30c3f61be"
+qiita_url: "https://qiita.com/Cosoado/items/893d20329cf30c3f61be"
 ---
 
 > Cosoado Lab Blog 同時掲載予定: https://cosoado-lab.com/blog/vercel-one-repo-multiple-projects/
