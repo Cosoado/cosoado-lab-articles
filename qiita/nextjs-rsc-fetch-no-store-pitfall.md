@@ -2,8 +2,8 @@
 title: "Next.js App Router: fetch に no-store を設定しないと静かに古いデータが出る理由"
 tags: ["Next.js", "AppRouter", "fetch", "キャッシュ", "個人開発"]
 published: true
-qiita_id:
-qiita_url:
+qiita_id: "4a5c61d2ae5de57659df"
+qiita_url: "https://qiita.com/Cosoado/items/4a5c61d2ae5de57659df"
 ---
 
 > Cosoado Lab Blog 同時掲載予定: https://cosoado-lab.com/blog/nextjs-rsc-fetch-no-store-pitfall/
