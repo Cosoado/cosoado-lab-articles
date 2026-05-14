@@ -2,8 +2,8 @@
 title: "Supabase CLI の db push でマイグレーションを本番に安全に流す運用パターン"
 tags: ["Supabase", "PostgreSQL", "個人開発", "CLI", "データベース"]
 published: true
-qiita_id:
-qiita_url:
+qiita_id: "7da7687d039c25852010"
+qiita_url: "https://qiita.com/Cosoado/items/7da7687d039c25852010"
 ---
 
 > Cosoado Lab Blog 同時掲載予定: https://cosoado-lab.com/blog/supabase-cli-db-push-migration-flow/
