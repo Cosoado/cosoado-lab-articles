@@ -167,4 +167,5 @@ with check ( (select auth.uid()) = user_id );
 [SparMate](https://sparmate.cosoado-lab.com) — 格闘技の練習相手マッチング  
 [NetaPair](https://netapair.cosoado-lab.com) — お笑いの相方探し  
 [BoardLink](https://boardlink.cosoado-lab.com) — ボドゲ・TRPG 仲間募集  
+[TsuriMate](https://tsurimate.cosoado-lab.com) — 釣り仲間・船割りマッチング  
 [Cosoado Lab](https://cosoado-lab.com)

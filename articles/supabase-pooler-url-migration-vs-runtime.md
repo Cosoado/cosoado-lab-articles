@@ -185,9 +185,10 @@ export const db = drizzle(client, { schema })
 
 ## Cosoado Lab のプロダクト
 
-- [SparMate](https://sparmate.cosoado-lab.com) — スパーリング相手を見つけるマッチングアプリ
-- [NetaPair](https://netapair.cosoado-lab.com) — アイデアとエンジニアをマッチング
-- [BoardLink](https://boardlink.cosoado-lab.com) — 個人開発チームのタスク管理
-- [Cosoado Lab](https://cosoado-lab.com) — 個人開発ラボ
+- [SparMate](https://sparmate.cosoado-lab.com) — 格闘技の練習相手マッチング
+- [NetaPair](https://netapair.cosoado-lab.com) — お笑いの相方探し
+- [BoardLink](https://boardlink.cosoado-lab.com) — ボドゲ・TRPG 仲間募集
+- [TsuriMate](https://tsurimate.cosoado-lab.com) — 釣り仲間・船割りマッチング
+- [Cosoado Lab](https://cosoado-lab.com) — 個人開発スタジオ
 
 作者: Cosoado / cosoadooo@gmail.com

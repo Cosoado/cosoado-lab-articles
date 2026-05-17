@@ -122,7 +122,8 @@ Supabase CLI のマイグレーション管理は、`supabase_migrations.schema_
 
 Cosoado Lab が開発中のサービス:
 
-- [SparMate](https://sparmate.cosoado-lab.com) — スパーリングパートナーマッチング
-- [NetaPair](https://netapair.cosoado-lab.com) — アイデア壁打ちマッチング
-- [BoardLink](https://boardlink.cosoado-lab.com) — 企業×個人のボードメンバーマッチング
+- [SparMate](https://sparmate.cosoado-lab.com) — 格闘技の練習相手マッチング
+- [NetaPair](https://netapair.cosoado-lab.com) — お笑いの相方探し
+- [BoardLink](https://boardlink.cosoado-lab.com) — ボドゲ・TRPG 仲間募集
+- [TsuriMate](https://tsurimate.cosoado-lab.com) — 釣り仲間・船割りマッチング
 - [Cosoado Lab](https://cosoado-lab.com) — 個人開発スタジオ

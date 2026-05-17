@@ -128,9 +128,10 @@ v14 → v15 の移行では、`cache` オプションを明示していない fe
 
 ---
 
-Cosoado Lab では格闘技・お笑い・ボードゲームのマッチングアプリを個人開発しています。
+Cosoado Lab では格闘技・お笑い・ボードゲーム・釣りのマッチングアプリを個人開発しています。
 
 - [SparMate](https://sparmate.cosoado-lab.com) — 格闘技の練習相手マッチング
-- [NetaPair](https://netapair.cosoado-lab.com) — お笑いの相方マッチング
-- [BoardLink](https://boardlink.cosoado-lab.com) — ボドゲ・TRPG 仲間マッチング
-- [Cosoado Lab](https://cosoado-lab.com)
+- [NetaPair](https://netapair.cosoado-lab.com) — お笑いの相方探し
+- [BoardLink](https://boardlink.cosoado-lab.com) — ボドゲ・TRPG 仲間募集
+- [TsuriMate](https://tsurimate.cosoado-lab.com) — 釣り仲間・船割りマッチング
+- [Cosoado Lab](https://cosoado-lab.com) — 個人開発スタジオ
