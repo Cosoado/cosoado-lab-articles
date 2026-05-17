@@ -60,7 +60,7 @@ echo "boardgame" | npx vercel env add NEXT_PUBLIC_GENRE production
 ### 3. アプリ側で env var を読む
 
 ```ts
-// src/config/genre.ts
+// src/config/genre.ts (記事用に 3 ジャンル抜粋。実テンプレは N ジャンル対応で追加可能)
 type Genre = 'martial' | 'comedy' | 'boardgame';
 
 export const GENRE_CONFIGS: Record<Genre, GenreConfig> = {

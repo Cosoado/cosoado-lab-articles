@@ -1,18 +1,17 @@
 ---
 title: "1 つの env var で 3 つのマッチングアプリを量産した話 — Next.js × Supabase の現実的なマルチテナント"
-emoji: "🎯"
-type: "tech"
-topics: ["nextjs", "supabase", "vercel", "個人開発", "マルチテナント"]
-published: false
+tags: ["Next.js", "Supabase", "Vercel", "個人開発", "マルチテナント"]
+published: true
+qiita_id:
+qiita_url:
 ---
 
-> Cosoado Lab Blog 同時掲載: https://cosoado-lab.com/blog/3-matching-apps-one-codebase/
+> 本記事の canonical URL (公式ブログ版): https://cosoado-lab.com/blog/3-matching-apps-one-codebase/
+> Zenn にもクロスポストしています: https://zenn.dev/cosoado/articles/3-matching-apps-one-codebase
 
 「同じ構造のプロダクト、別ジャンルで横展開できないか」と考えたことがある個人開発者へ。
 
 Next.js + Supabase の **1 コードベース**から、格闘技・お笑い・ボードゲーム向けの 3 つのマッチングアプリを並列で動かしています。"あと 1 人" を見つけたいユーザーを 3 コミュニティで同時に集めてみて、初めて見えた現実を書きます。
-
----
 
 ## 走らせている 3 アプリ
 
@@ -23,8 +22,6 @@ Next.js + Supabase の **1 コードベース**から、格闘技・お笑い・
 | **BoardLink** | boardlink.cosoado-lab.com | ボードゲーム・TRPG の卓メンバー募集 |
 
 3 つとも、同じ 1 本の Next.js + Supabase のコードから動いている。
-
----
 
 ## はじめに — 首を痛めた火曜の夜から始まった
 
@@ -37,8 +34,6 @@ Next.js + Supabase の **1 コードベース**から、格闘技・お笑い・
 作ってから 2 週間後、友人のお笑い芸人に「相方探しで似た悩みを抱えている」と聞いた。「ボケとツッコミ、ネタの方向性、温度感で探せたら…」。聞きながら気づいた。**アプリの中身、ほとんど同じじゃないか？**
 
 そこから派生したのが NetaPair（お笑いの相方探し）と BoardLink（ボードゲームの卓メンバー募集）。
-
----
 
 ## アプリが違っても、痒みの形は同じだった
 
@@ -55,8 +50,6 @@ Next.js + Supabase の **1 コードベース**から、格闘技・お笑い・
 > マッチングの本質はアルゴリズムじゃない。"条件で絞れる" × "メッセージを送れる" が揃えば、あとはユーザーが勝手に見つける。
 
 この発見が、全部を 1 コードベースでやる決め手になった。
-
----
 
 ## 1 つの env var で 3 アプリに分岐する
 
@@ -102,6 +95,25 @@ export const GENRE_CONFIGS = {
 
 ### デプロイは Vercel の 4 プロジェクト並列
 
+全体構成を図示するとこうなる。
+
+```mermaid
+graph LR
+  Repo[GitHub: matching-app-template] --> V1[Vercel: martial-matching]
+  Repo --> V2[Vercel: comedy-matching]
+  Repo --> V3[Vercel: boardgame-matching]
+  Repo --> V4[Vercel: staging]
+  V1 --> D1[sparmate.cosoado-lab.com]
+  V2 --> D2[netapair.cosoado-lab.com]
+  V3 --> D3[boardlink.cosoado-lab.com]
+  V1 --> DB[(Supabase 1 project)]
+  V2 --> DB
+  V3 --> DB
+  DB --> S1[schema: sparmate]
+  DB --> S2[schema: netapair]
+  DB --> S3[schema: boardlink]
+```
+
 同じ GitHub リポジトリを 4 つの Vercel プロジェクトに紐づけている。
 
 | プロジェクト | 環境変数 | ドメイン |
@@ -120,8 +132,6 @@ export const GENRE_CONFIGS = {
 **理由は運用コスト。** マイグレーション 1 箇所、監視 1 箇所、課金 1 本。3 倍のダッシュボードを眺める個人開発者になりたくなかった。
 
 スキーマ間は RLS（Row Level Security）で完全に遮断していて、片方のデータがもう片方に漏れない構造になっている。
-
----
 
 ## 3 つ同時に回して初めて見えたこと
 
@@ -169,8 +179,6 @@ NetaPair と BoardLink は、自分の痛みから生まれたアプリではな
 
 SparMate は「柔術やってる自分がほしいか」で全部決められる。これが最速で作れた理由だし、**複数ジャンル展開を考えているなら、"scratch-your-own-itch" の 1 本を先に完成させてからテンプレ化する順番が圧倒的に速い**と言いたい。
 
----
-
 ## ユーザーから見ると、完全に別アプリ
 
 3 アプリは、ユーザーにとって**完全に別プロダクト**として認知されている。
@@ -183,8 +191,6 @@ SparMate は「柔術やってる自分がほしいか」で全部決められ�
 
 これは意図的にやっている。**ブランディングは完全分離**。色、言語、ロゴ、コピー、プロフィールの項目まで最適化している。裏側が共通であることは、ユーザー体験の質には関係ない。
 
----
-
 ## 数字の話
 
 ベータ期なので詳細数字は伏せるけれど、構造的な感覚だけ。
@@ -196,19 +202,19 @@ SparMate は「柔術やってる自分がほしいか」で全部決められ�
 
 個人開発で 1 アプリが回り始めるまで半年かかるのはよくある話。テンプレート化すると **3 アプリ分のフィードバックが並列で入る**ので、ジャンル比較の解像度が一気に上がる。これがいちばん効いたメリット。
 
----
+> ※ テンプレ自体はマルチジャンル対応で、本稿で扱う 3 アプリの後に 4 本目として釣り仲間マッチング [TsuriMate](https://tsurimate.cosoado-lab.com) を β 稼働中。本記事は「最初に立ち上げた 3 つ」に焦点を絞っている。
 
-## 3 つのアプリ、使ってみたい人へ
+## 補遺：3 つのアプリ、使ってみたい人へ
+
+（ここから先は記事本論ではなく、興味があれば触ってもらえると嬉しいというお知らせ）
 
 全部無料のベータ版。全部「あと 1 人」を見つけるためのアプリです。
 
-- 🥊 [**SparMate**](https://sparmate.cosoado-lab.com) — 体重・レベル・エリアで格闘技の練習相手をマッチング
-- 🎤 [**NetaPair**](https://netapair.cosoado-lab.com) — ボケ・ツッコミ・ネタ方向性でお笑いの相方探し
-- 🎲 [**BoardLink**](https://boardlink.cosoado-lab.com) — タイトル・レベル感・エリアでボドゲ・TRPG 仲間募集
+- [**SparMate**](https://sparmate.cosoado-lab.com) — 体重・レベル・エリアで格闘技の練習相手をマッチング
+- [**NetaPair**](https://netapair.cosoado-lab.com) — ボケ・ツッコミ・ネタ方向性でお笑いの相方探し
+- [**BoardLink**](https://boardlink.cosoado-lab.com) — タイトル・レベル感・エリアでボドゲ・TRPG 仲間募集
 
 同じ "あと 1 人" の壁を感じている方は、ぜひログインだけでも試してみてください。登録は 60 秒、合わなければ即退会で OK です。**あなたのジャンルで登録者がまだ少なくても、"最初の 1 人" になる価値はあります**——その 1 人目がいれば、次の 1 人はもう探しに来るので。
-
----
 
 ## 最後に — "レバレッジ" の再定義
 
@@ -219,11 +225,3 @@ SparMate は「柔術やってる自分がほしいか」で全部決められ�
 もし自分が「趣味 X のマッチングアプリ、誰か作ってくれないかな」と思っていた側の人がこれを読んでいたら、**実は `genre.ts` に 1 エントリ足せば立ち上がる**ということを伝えたい。3 つ目までいけた実感として、4 つ目のジャンルを誰かと一緒に立ち上げるのも面白いと思っている。
 
 興味があれば、各アプリの問い合わせ窓口から声をかけてもらえると嬉しいです。
-
----
-
-:::message
-
-公式ブログ版もあります → https://cosoado-lab.com/blog/3-matching-apps-one-codebase/
-
-:::
