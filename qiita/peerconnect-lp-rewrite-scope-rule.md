@@ -1,7 +1,7 @@
 ---
 title: "LP に書いた機能、grep src/ してヒットしますか？ — 個人開発で踏みやすい『未実装の約束』の話"
 tags: ["個人開発", "LP", "UX", "プロダクト開発", "景表法"]
-published: false
+published: true
 qiita_id:
 qiita_url:
 ---
@@ -40,7 +40,7 @@ qiita_url:
 
 採用は **B + C のハイブリッド**。
 
-```
+```text
 今、お使いいただけるもの
   ・5 軸プロフィールで似た方をお探しになる機能
   ・双方が「いいね」されたあとのメッセージ機能
@@ -59,7 +59,7 @@ qiita_url:
 
 ## 利用規約・PP との食い違い
 
-LP の「退会すると、すべてのデータが即時削除される」が、PP 第 6 条「合理的な期間内に削除 + 例外あり」と食い違っていました。景表法 5 条の優良誤認のラインで、LP 側を弱める方が安全:
+LP の「退会すると、すべてのデータが即時削除される」が、PP 第 6 条「合理的な期間内に削除 + 例外あり」と食い違っていました。[景表法 第 5 条第 1 号](https://laws.e-gov.go.jp/law/337AC0000000134#Mp-At_5)の優良誤認のラインで、LP 側を弱める方が安全:
 
 > 退会後、プロフィール・メッセージ・履歴は速やかに削除されます (法令保存義務分・バックアップ世代を除く / プライバシーポリシー参照)。
 
@@ -148,12 +148,16 @@ scale アニメも opacity に置換。
 5. **AI 感の排除パスを通したか** — LP 大幅編集後は「AI 要素を排除して再作成」を自己実行
 6. **LP の長尾 SEO を用意したか** — `/guide` 配下のロングフォーム記事 3-5 本を同時公開
 
-特に 1, 2, 3 は致命的。優良誤認は景表法・特商法の違反で消費者庁の指導対象。個人開発でも他人事ではない。
+特に 1, 2, 3 は致命的。優良誤認は[景表法 (不当景品類及び不当表示防止法) 第 5 条第 1 号](https://laws.e-gov.go.jp/law/337AC0000000134#Mp-At_5)の違反で、[消費者庁の指導対象](https://www.caa.go.jp/policies/policy/representation/fair_labeling/)になりえる。通信販売・有料サービスの広告は特商法第 12 条 (誇大広告等の禁止) でも別途規制対象。個人開発でも他人事ではない。
 
 ---
 
 ## 関連リソース
 
 - [ピアコネクト (本体)](https://peerconnect.cosoado-lab.com/)
+- [希少がん仲間の見つけ方ガイド](https://peerconnect.cosoado-lab.com/guide/find-rare-cancer-peer)
+- [AYA 世代がんと妊孕性温存ガイド](https://peerconnect.cosoado-lab.com/guide/aya-fertility-preservation)
 - [Cosoado Lab Blog 同記事](https://cosoado-lab.com/blog/peerconnect-lp-rewrite/)
 - [1 つの env var で 3 つのマッチングアプリを量産した話](https://qiita.com/Cosoado/items/893d20329cf30c3f61be)
+- [景表法 (不当景品類及び不当表示防止法) — e-Gov 法令検索](https://laws.e-gov.go.jp/law/337AC0000000134)
+- [消費者庁「不当な表示の禁止」](https://www.caa.go.jp/policies/policy/representation/fair_labeling/)

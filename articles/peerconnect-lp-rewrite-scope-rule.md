@@ -1,9 +1,9 @@
 ---
 title: "LP に書いた機能、grep src/ してヒットしますか？ — 個人開発で踏みやすい『未実装の約束』の話"
-emoji: "✉️"
+emoji: "📮"
 type: "idea"
 topics: ["個人開発", "lp", "ux", "景表法", "プロダクト"]
-published: false
+published: true
 ---
 
 > Cosoado Lab Blog 同時掲載: https://cosoado-lab.com/blog/peerconnect-lp-rewrite/
@@ -41,7 +41,7 @@ published: false
 
 採用は **B + C のハイブリッド**。ヒーロー / 機能カード / FAQ JSON-LD からは完全撤去し、LP の中盤に「**今あるもの・これからのこと**」セクションを新設して、未実装機能を分かりやすく分けました。
 
-```
+```text
 今、お使いいただけるもの
   ・5 軸プロフィールで似た方をお探しになる機能
   ・双方が「いいね」されたあとのメッセージ機能
@@ -73,7 +73,7 @@ LP には「退会すると、すべてのデータが即時削除される」�
 
 LP は「即時 + すべて」、PP は「合理的な期間内 + 例外あり」で、**食い違い**。
 
-景表法 5 条の優良誤認に該当する可能性のあるライン。LP 側を弱める方が安全:
+[景表法 第 5 条第 1 号](https://laws.e-gov.go.jp/law/337AC0000000134#Mp-At_5)の優良誤認に該当する可能性のあるライン。LP 側を弱める方が安全:
 
 > 退会後、プロフィール・メッセージ・履歴は速やかに削除されます (法令保存義務分・バックアップ世代を除く / プライバシーポリシー参照)。
 
@@ -186,7 +186,7 @@ scale アニメも opacity に置換。「跳ねるボタン」は他ジャン�
 5. **AI 感の排除パスを通したか** — `*LandingPage.tsx` の新規作成・大幅編集後は「さっきの AI 要素を排除して同じ要件で再作成」を自己実行
 6. **LP の長尾 SEO を用意したか** — 単独の LP だけでは検索流入が薄い。`/guide` 配下のロングフォーム記事 (出典付き) を 3-5 本同時公開する
 
-特に 1, 2, 3 はミスると致命的。優良誤認は景表法・特商法の違反で、消費者庁の指導対象にもなりえる。個人開発でも他人事ではない。
+特に 1, 2, 3 はミスると致命的。優良誤認は[景表法 (不当景品類及び不当表示防止法) 第 5 条第 1 号](https://laws.e-gov.go.jp/law/337AC0000000134#Mp-At_5)の違反で、[消費者庁の指導対象](https://www.caa.go.jp/policies/policy/representation/fair_labeling/)になりえる。通信販売・有料サービスの広告は特商法第 12 条 (誇大広告等の禁止) でも別途規制対象になる。個人開発でも他人事ではない。
 
 ---
 
@@ -197,3 +197,5 @@ scale アニメも opacity に置換。「跳ねるボタン」は他ジャン�
 - [AYA 世代がんと妊孕性温存ガイド](https://peerconnect.cosoado-lab.com/guide/aya-fertility-preservation)
 - [Cosoado Lab Blog 同記事](https://cosoado-lab.com/blog/peerconnect-lp-rewrite/)
 - [1 つの env var で 3 つのマッチングアプリを量産した話](https://zenn.dev/cosoado/articles/3-matching-apps-one-codebase)
+- [景表法 (不当景品類及び不当表示防止法) — e-Gov 法令検索](https://laws.e-gov.go.jp/law/337AC0000000134)
+- [消費者庁「不当な表示の禁止」](https://www.caa.go.jp/policies/policy/representation/fair_labeling/)
