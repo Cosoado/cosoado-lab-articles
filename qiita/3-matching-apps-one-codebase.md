@@ -2,8 +2,8 @@
 title: "1 つの env var で 3 つのマッチングアプリを量産した話 — Next.js × Supabase の現実的なマルチテナント"
 tags: ["Next.js", "Supabase", "Vercel", "個人開発", "マルチテナント"]
 published: true
-qiita_id:
-qiita_url:
+qiita_id: "ab980e08c31897e0ba4e"
+qiita_url: "https://qiita.com/Cosoado/items/ab980e08c31897e0ba4e"
 ---
 
 > 本記事の canonical URL (公式ブログ版): https://cosoado-lab.com/blog/3-matching-apps-one-codebase/
