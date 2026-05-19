@@ -2,8 +2,8 @@
 title: "LP に書いた機能、grep src/ してヒットしますか？ — 個人開発で踏みやすい『未実装の約束』の話"
 tags: ["個人開発", "LP", "UX", "プロダクト開発", "景表法"]
 published: true
-qiita_id:
-qiita_url:
+qiita_id: "911e8c049aa62dc681b4"
+qiita_url: "https://qiita.com/Cosoado/items/911e8c049aa62dc681b4"
 ---
 
 > Cosoado Lab Blog 同時掲載: https://cosoado-lab.com/blog/peerconnect-lp-rewrite/
