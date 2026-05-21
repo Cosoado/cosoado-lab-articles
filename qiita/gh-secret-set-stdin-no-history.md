@@ -2,8 +2,8 @@
 title: "GitHub Secret をシェル履歴に残さず登録する gh CLI の正しい使い方"
 tags: ["GitHub", "GitHubActions", "ShellScript", "セキュリティ", "CLI"]
 published: true
-qiita_id:
-qiita_url:
+qiita_id: "a6f3b4f556aecb9827c8"
+qiita_url: "https://qiita.com/Cosoado/items/a6f3b4f556aecb9827c8"
 ---
 
 > Cosoado Lab Blog 同時掲載予定: https://cosoado-lab.com/blog/gh-secret-set-stdin-no-history/
