@@ -2,8 +2,8 @@
 title: "Resend のドメイン認証を 30 分で完了させる：SPF・DKIM・DMARC 設定の最短ルート"
 tags: ["Resend", "メール", "DNS", "個人開発", "Next.js"]
 published: true
-qiita_id:
-qiita_url:
+qiita_id: "2b2568797ffa0e12931c"
+qiita_url: "https://qiita.com/Cosoado/items/2b2568797ffa0e12931c"
 ---
 
 > Cosoado Lab Blog 同時掲載予定: https://cosoado-lab.com/blog/resend-domain-auth-30min/
