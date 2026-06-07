@@ -1,9 +1,11 @@
 ---
 title: "1 つの env var で 3 つのマッチングアプリを量産した話 — Next.js × Supabase の現実的なマルチテナント"
 tags: ["Next.js", "Supabase", "Vercel", "個人開発", "マルチテナント"]
-published: true
+published: false
 qiita_id: "ab980e08c31897e0ba4e"
 qiita_url: "https://qiita.com/Cosoado/items/ab980e08c31897e0ba4e"
+qiita_status: "needs_manual_delete"
+qiita_note: "本記事は構造的に複数自社アプリの promo であり Qiita ガイドラインの spam に該当する。Qiita UI から手動削除 → Blog (canonical) のみで運用する。 published:false は cron PATCH を止めるためで、Qiita 上の記事は削除されない (script は DELETE 未対応)。"
 ---
 
 > 本記事の canonical URL (公式ブログ版): https://cosoado-lab.com/blog/3-matching-apps-one-codebase/

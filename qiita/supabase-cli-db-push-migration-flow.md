@@ -117,13 +117,3 @@ supabase db diff -f add_profiles_bio
 | 本番 push | `supabase db push` |
 
 Supabase CLI のマイグレーション管理は、`supabase_migrations.schema_migrations` テーブルが中心にある、という前提を理解するだけで詰まる箇所がぐっと減る。Dashboard 直接編集との共存は早めに断ち切るほど楽になる。
-
----
-
-Cosoado Lab が開発中のサービス:
-
-- [SparMate](https://sparmate.cosoado-lab.com) — 格闘技の練習相手マッチング
-- [NetaPair](https://netapair.cosoado-lab.com) — お笑いの相方探し
-- [BoardLink](https://boardlink.cosoado-lab.com) — ボドゲ・TRPG 仲間募集
-- [TsuriMate](https://tsurimate.cosoado-lab.com) — 釣り仲間・船割りマッチング
-- [Cosoado Lab](https://cosoado-lab.com) — 個人開発スタジオ

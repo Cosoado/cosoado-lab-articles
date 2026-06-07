@@ -182,6 +182,53 @@ function checkSeoBody(body, addIssue) {
   if (!hasCanonicalNote) addIssue('MINOR', 'No canonical / cross-post note found (recommended for SEO when cross-posting)');
 }
 
+// 2026-06-07: Qiita が `supabase-cli-db-push-migration-flow` を spam 判定 (非公開化) +
+// `3-matching-apps-one-codebase` の PATCH が CloudFront WAF で 403 ブロック。
+// 共通原因は記事末尾の「自社プロダクト宣伝リンク羅列フッター」。 Qiita ガイドラインで
+// 明確に spam 対象とされているため、ここで CRITICAL として弾く。
+//
+// 検出ルール:
+//   1. 本文中の Cosoado-lab subdomain への [text](url) リンクが 2 個以上
+//   2. 末尾 1/3 範囲に Cosoado-lab subdomain への [text](url) リンクが 1 個以上
+//      (技術記事に対する promo footer の典型パターン)
+//   3. 「Cosoado Lab が開発中」「個人開発スタジオ」等の自己紹介行 + 直後に link list
+//
+// canonical note 1 行 (記事本文版へのリンク) は許容する。
+function checkPromoFooter(body, addIssue) {
+  // 1 行の canonical note (> Cosoado Lab Blog 同時掲載 …) は許容する。
+  // それ以外で cosoado-lab subdomain への markdown link を全数検出。
+  const PROMO_HOST_RE = /\[([^\]]+)\]\(https?:\/\/(?:[a-z0-9-]+\.)?cosoado-lab\.com[^)]*\)/g;
+  const matches = [...body.matchAll(PROMO_HOST_RE)];
+  if (matches.length === 0) return;
+
+  // canonical / blockquote 内のリンクは除外 (> で始まる行)
+  const bodyLines = body.split('\n');
+  const lineIndexOf = (offset) => body.slice(0, offset).split('\n').length - 1;
+  const nonQuotedLinks = matches.filter(m => {
+    const lineIdx = lineIndexOf(m.index);
+    return !/^>\s/.test(bodyLines[lineIdx] || '');
+  });
+
+  if (nonQuotedLinks.length >= 2) {
+    addIssue('CRITICAL',
+      `Promotional pattern: ${nonQuotedLinks.length} links to cosoado-lab.com in body. ` +
+      `Qiita flags self-promo link lists as spam (incident: 2026-06-07). Use a single canonical ` +
+      `blockquote (> ...) at the top instead, and remove product lists from the body.`);
+    return;
+  }
+
+  // 末尾 1/3 にあるリンクは promo footer の典型 → MAJOR
+  const bodyLen = body.length;
+  const tailStart = Math.floor(bodyLen * 2 / 3);
+  const tailLink = nonQuotedLinks.find(m => m.index >= tailStart);
+  if (tailLink) {
+    addIssue('CRITICAL',
+      `Promo footer detected: cosoado-lab.com link "${tailLink[1]}" in last 1/3 of article. ` +
+      `Move to a canonical blockquote at the top, or remove entirely. ` +
+      `(Qiita spam incident: 2026-06-07)`);
+  }
+}
+
 function validateFile(fpath, kind, isDraft) {
   const issues = [];
   const addIssue = (level, msg) => issues.push({ level, msg });
@@ -191,6 +238,7 @@ function validateFile(fpath, kind, isDraft) {
   if (kind === 'zenn') checkZennFrontmatter(meta, body, addIssue);
   if (kind === 'qiita') checkQiitaFrontmatter(meta, body, addIssue);
   checkSeoBody(body || '', addIssue);
+  if (kind === 'qiita') checkPromoFooter(body || '', addIssue);
   return { fpath, kind, isDraft, issues };
 }
 

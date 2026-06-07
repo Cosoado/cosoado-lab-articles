@@ -157,12 +157,4 @@ export function getGenreConfig(): GenreConfig {
 - **build cache 非共有・env var 設定漏れ・preview deploy の連鎖**の 3 つは事前に押さえる
 - Hobby の 1 repo あたりプロジェクト上限は 10 なので、設定上の天井までは余裕がある
 
-この構成で「あと 1 人」を見つけるマッチングアプリを 3 ジャンル運用しています。次回は **`NEXT_PUBLIC_GENRE` 1 つで配色・言語・機能フラグを切り替えるアプリ側の設計** を書く予定です。
-
-3 アプリの実物はこちら:
-
-- [SparMate](https://sparmate.cosoado-lab.com) — 格闘技の練習相手
-- [NetaPair](https://netapair.cosoado-lab.com) — お笑いの相方
-- [BoardLink](https://boardlink.cosoado-lab.com) — ボドゲ・TRPG 仲間
-
-ご意見・質問はコメント欄か [Cosoado Lab](https://cosoado-lab.com) からお気軽にどうぞ。
+次回は `NEXT_PUBLIC_*` 系の build-time / runtime 区分と、N プロジェクト構成で env var を取り違えないための運用工夫について書く予定です。
