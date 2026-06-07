@@ -2,6 +2,8 @@
 title: "LLM が間違ってもユーザーが気づけない領域に、汎用モデルを使ってはいけない — 寿司チャットボットの設計判断"
 tags: ["OpenAI", "LLM", "プロンプトエンジニアリング", "個人開発", "ChatGPT"]
 published: true
+qiita_id: "389a51f6db6053d2b1ac"
+qiita_url: "https://qiita.com/Cosoado/items/389a51f6db6053d2b1ac"
 ---
 
 ## TL;DR
