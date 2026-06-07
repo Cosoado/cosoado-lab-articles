@@ -134,12 +134,3 @@ gh secret set QIITA_TOKEN --org Cosoado --visibility all
 - `--body -` は stdin ではなくリテラルの `"-"` が値になる（罠）
 
 この手の地味な習慣の違いが、ある日突然「履歴を全文検索されたとき」に効いてくる。
-
----
-
-Cosoado Lab では個人開発のプロダクトを運営しながら、こういう小さな発見を記事にしています。
-
-- **SparMate** — [https://sparmate.cosoado-lab.com](https://sparmate.cosoado-lab.com)
-- **NetaPair** — [https://netapair.cosoado-lab.com](https://netapair.cosoado-lab.com)
-- **BoardLink** — [https://boardlink.cosoado-lab.com](https://boardlink.cosoado-lab.com)
-- **Cosoado Lab** — [https://cosoado-lab.com](https://cosoado-lab.com)
