@@ -2,8 +2,8 @@
 title: "Vercel CLI で .env から環境変数を一括 push する方法と、ハマりやすい3つのポイント"
 tags: ["Vercel", "ShellScript", "CLI", "個人開発", "DevOps"]
 published: true
-qiita_id:
-qiita_url:
+qiita_id: "1a75c21776d7a0c03f0b"
+qiita_url: "https://qiita.com/Cosoado/items/1a75c21776d7a0c03f0b"
 ---
 
 > Cosoado Lab Blog 同時掲載予定: https://cosoado-lab.com/blog/vercel-env-add-cli-bulk/
