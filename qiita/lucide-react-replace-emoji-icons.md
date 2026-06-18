@@ -2,8 +2,8 @@
 title: "lucide-react で絵文字アイコンを一掃する—App Router 統一アイコン設計 3 ステップ"
 tags: ["React", "Next.js", "lucide-react", "TypeScript", "個人開発"]
 published: true
-qiita_id:
-qiita_url:
+qiita_id: "c494f7a2061e56ccc0c0"
+qiita_url: "https://qiita.com/Cosoado/items/c494f7a2061e56ccc0c0"
 ---
 
 > Cosoado Lab Blog 同時掲載予定: https://cosoado-lab.com/blog/lucide-react-replace-emoji-icons/
