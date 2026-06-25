@@ -2,8 +2,8 @@
 title: "Zenn と Qiita に同じ記事を投稿して canonical を壊さない3つのルール"
 tags: ["Zenn", "Qiita", "SEO", "クロスポスト", "個人開発"]
 published: true
-qiita_id:
-qiita_url:
+qiita_id: "4e7353d400340583c007"
+qiita_url: "https://qiita.com/Cosoado/items/4e7353d400340583c007"
 ---
 
 > Cosoado Lab Blog 同時掲載予定: https://cosoado-lab.com/blog/qiita-zenn-cross-post-canonical/
