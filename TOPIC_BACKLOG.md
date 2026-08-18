@@ -20,8 +20,7 @@
 | `nextjs-env-var-genre-config-pattern` | Next.js で env var 1 つで配色・言語・機能を切り替える設計 | 設計 |
 | `gha-cron-jitter-idempotent-slots` | GitHub Actions cron の遅延 (30〜90 分) を前提に「1 スロット 3 発」撃って冪等に 1 回だけ実行する | CI |
 | `smooth-weighted-round-robin-rotation` | 重み付きローテで同じ項目を連続させない平滑化 (nginx の smooth weighted round-robin) | アルゴリズム |
-| `wcag-contrast-gate-in-generated-images` | 生成した OGP / SNS 画像のコントラスト比を出力前に検証して、割ったら生成を落とす | 画像生成 |
-| `supabase-cross-schema-read-from-one-deploy` | 1 デプロイから全テナントスキーマを読む集約バッチの組み方と権限設計 | DB |
+| `wcag-contrast-gate-in-generated-images` | 生成した OGP / SNS 画像のコントラスト比を出力前に検証して、割ったら生成を落とす（Pillow + ヒラギノでの 0 円生成も含める） | 画像生成 |
 
 ## Qiita 用（howto・実装手順系）
 
@@ -36,9 +35,6 @@
 | `nextjs-rsc-fetch-no-store-pitfall` | Next.js App Router で fetch の no-store / force-cache を間違えると静かに古いデータが出る話 | App Router |
 | `gh-secret-set-stdin-no-history` | GitHub Secret をシェル履歴に残さず登録する gh CLI のワンライナー | security |
 | `itunes-lookup-api-detect-dead-appstore-id` | iTunes Lookup API で LP のストアリンク切れを機械検出する | 運用 |
-| `meta-graph-long-lived-token-expiry-ops` | Instagram / Threads の長期トークン失効を検知して定期投稿を落とさない運用 | API |
-| `x-api-402-payment-required-triage` | X API が 402 Payment Required を返すときの切り分け手順 | API |
-| `pillow-hiragino-social-card-generator` | Pillow + macOS 同梱ヒラギノで SNS カードを追加コスト 0 で生成する | 画像生成 |
 
 ---
 
@@ -58,3 +54,17 @@
 - 2026-08-18: 初版 16 件が全て公開済み（ネタ切れ）になっていたため 8 件補充。
   執筆が 2026-06-29 で止まっていた直接の原因はバックログの枯渇で、
   仕組みの故障ではない。以後もここが空になったら同じ止まり方をする。
+
+## 保留（条件が揃うまで書かない）
+
+| slug | トピック | 保留理由 |
+|---|---|---|
+| `meta-graph-long-lived-token-expiry-ops` | Instagram / Threads の長期トークン失効運用 | 自分のトークンが失効したまま復旧していない。解決していない問題の「対策記事」は一次体験の説得力が出ない |
+| `x-api-402-payment-required-triage` | X API の 402 切り分け | 同上。402 の原因が未特定 |
+
+## 却下
+
+| slug | 却下理由 |
+|---|---|
+| `supabase-cross-schema-read-from-one-deploy` | 公開済みの `vercel-cron-jobs-aggregate-daily-metrics-email` が 1 デプロイからの全スキーマ集約を既に扱っている |
+| `pillow-hiragino-social-card-generator` | 単体では目新しさが薄い。`wcag-contrast-gate-in-generated-images` に吸収した |
