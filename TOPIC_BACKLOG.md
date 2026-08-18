@@ -18,6 +18,10 @@
 | `supabase-rls-with-check-vs-using-pitfall` | Supabase RLS で WITH CHECK と USING を間違えてハマる話 | RLS |
 | `vercel-build-cache-not-shared-across-projects` | Vercel の build cache がプロジェクト間で共有されない話と回避策 | build |
 | `nextjs-env-var-genre-config-pattern` | Next.js で env var 1 つで配色・言語・機能を切り替える設計 | 設計 |
+| `gha-cron-jitter-idempotent-slots` | GitHub Actions cron の遅延 (30〜90 分) を前提に「1 スロット 3 発」撃って冪等に 1 回だけ実行する | CI |
+| `smooth-weighted-round-robin-rotation` | 重み付きローテで同じ項目を連続させない平滑化 (nginx の smooth weighted round-robin) | アルゴリズム |
+| `wcag-contrast-gate-in-generated-images` | 生成した OGP / SNS 画像のコントラスト比を出力前に検証して、割ったら生成を落とす | 画像生成 |
+| `supabase-cross-schema-read-from-one-deploy` | 1 デプロイから全テナントスキーマを読む集約バッチの組み方と権限設計 | DB |
 
 ## Qiita 用（howto・実装手順系）
 
@@ -31,6 +35,10 @@
 | `lucide-react-replace-emoji-icons` | lucide-react で UI から絵文字を排除する一貫したアイコン設計 | UI |
 | `nextjs-rsc-fetch-no-store-pitfall` | Next.js App Router で fetch の no-store / force-cache を間違えると静かに古いデータが出る話 | App Router |
 | `gh-secret-set-stdin-no-history` | GitHub Secret をシェル履歴に残さず登録する gh CLI のワンライナー | security |
+| `itunes-lookup-api-detect-dead-appstore-id` | iTunes Lookup API で LP のストアリンク切れを機械検出する | 運用 |
+| `meta-graph-long-lived-token-expiry-ops` | Instagram / Threads の長期トークン失効を検知して定期投稿を落とさない運用 | API |
+| `x-api-402-payment-required-triage` | X API が 402 Payment Required を返すときの切り分け手順 | API |
+| `pillow-hiragino-social-card-generator` | Pillow + macOS 同梱ヒラギノで SNS カードを追加コスト 0 で生成する | 画像生成 |
 
 ---
 
@@ -44,3 +52,9 @@
 ## 追加方針
 
 このバックログは適宜追加・整理される。ネタ切れになったら、エージェントは「該当なし」として無投稿で終了し、報告に「バックログ追加が必要」と書く。
+
+## 補充履歴
+
+- 2026-08-18: 初版 16 件が全て公開済み（ネタ切れ）になっていたため 8 件補充。
+  執筆が 2026-06-29 で止まっていた直接の原因はバックログの枯渇で、
+  仕組みの故障ではない。以後もここが空になったら同じ止まり方をする。
