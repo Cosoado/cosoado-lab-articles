@@ -2,8 +2,8 @@
 title: "LP の「近日公開」はいつ嘘になるか — iTunes Lookup API でストア表記のズレを検出する"
 tags: ["iOS", "AppStore", "API", "個人開発", "CI"]
 published: true
-qiita_id:
-qiita_url:
+qiita_id: "867e7fe7998a58a02b15"
+qiita_url: "https://qiita.com/Cosoado/items/867e7fe7998a58a02b15"
 ---
 
 > Cosoado Lab Blog にも同時掲載予定です（公開でき次第このブロックにリンクを追記します）。
