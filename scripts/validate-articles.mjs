@@ -240,7 +240,30 @@ function checkPromoFooter(body, addIssue) {
   }
 }
 
-function validateFile(fpath, kind, isDraft) {
+// 2026-09-05: 文字数レンジ (REVIEW_CHECKLIST.md 1-1) を自己レビュー任せにすると守られない。
+// 実例: qiita/gha-claude-api-pr-review.md が上限 3,000 字に対し 5,128 字 (71% 超) で
+// 「score 100/100」として公開された。プロンプトは 0 Major を要求するので、
+// _drafts/ 段階で MAJOR として機械的に止める。
+//
+// 対象は「まだ公開されていない draft」のみ:
+//   - 公開済み記事は遡って短縮しない (permalink / SEO を壊す利益がない)
+//   - promote 後に残った同名の draft も、公開済みなので対象外
+const LENGTH_TARGET = { zenn: [2000, 4000], qiita: [1500, 3000] };
+
+function checkLengthTarget(body, kind, addIssue) {
+  const range = LENGTH_TARGET[kind];
+  if (!range) return;
+  const [lo, hi] = range;
+  const len = [...body].length;
+  if (len > hi) {
+    const over = Math.round((len / hi - 1) * 100);
+    addIssue('MAJOR',
+      `Body is ${len} chars (${kind} target ${lo}-${hi}, ${over}% over upper bound). ` +
+      `See REVIEW_CHECKLIST.md 1-1 for the graduated score.`);
+  }
+}
+
+function validateFile(fpath, kind, isDraft, publishedSlugs = new Set()) {
   const issues = [];
   const addIssue = (level, msg) => issues.push({ level, msg });
   const raw = fs.readFileSync(fpath, 'utf8');
@@ -250,6 +273,10 @@ function validateFile(fpath, kind, isDraft) {
   if (kind === 'qiita') checkQiitaFrontmatter(meta, body, addIssue);
   checkSeoBody(body || '', addIssue);
   if (kind === 'qiita') checkPromoFooter(body || '', addIssue);
+  const slug = path.basename(fpath, '.md');
+  if (isDraft && !publishedSlugs.has(slug)) {
+    checkLengthTarget(body || '', kind, addIssue);
+  }
   return { fpath, kind, isDraft, issues };
 }
 
@@ -261,13 +288,18 @@ function main() {
     ...listMarkdown(path.join(REPO_ROOT, 'qiita', '_drafts')).map(p => ({ p, kind: 'qiita', isDraft: true })),
   ];
 
+  // 公開済み slug (articles/ と qiita/ の直下)。draft の文字数チェックの除外に使う。
+  const publishedSlugs = new Set(
+    targets.filter(t => !t.isDraft).map(t => path.basename(t.p, '.md'))
+  );
+
   let critical = 0;
   let major = 0;
   let minor = 0;
   let publishCritical = 0;
 
   for (const { p, kind, isDraft } of targets) {
-    const r = validateFile(p, kind, isDraft);
+    const r = validateFile(p, kind, isDraft, publishedSlugs);
     if (r.issues.length === 0) {
       console.log(`OK  ${path.relative(REPO_ROOT, p)}`);
       continue;
