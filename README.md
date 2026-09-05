@@ -96,6 +96,15 @@ npx zenn preview
 
 オーナー方針: **1 投稿 1 技術トピック**。詰めすぎず、部分部分で部分部分の技術にフォーカスする。
 
+## 自動執筆エージェント
+
+スケジュールプロンプトの正規ソースは [SCHEDULED_PROMPT.md](./SCHEDULED_PROMPT.md)（媒体別の索引）。
+Zenn と Qiita は別スケジュールで並行稼働するため、投稿前に必ず次のゲートを通す。
+
+```bash
+node scripts/check-publish-window.mjs --platform <zenn|qiita>
+```
+
 ## 投稿頻度とトピック選定
 
 **[PUBLISHING_POLICY.md](./PUBLISHING_POLICY.md) が正典。自動執筆エージェントは執筆前に必ず読む。**
