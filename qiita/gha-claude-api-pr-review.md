@@ -1,7 +1,7 @@
 ---
 title: "GitHub Actions + Claude API でプルリクに自動レビューコメントを付ける"
 tags: ["GitHubActions", "Claude", "AI", "個人開発", "Python"]
-published: true
+published: false
 qiita_id:
 qiita_url:
 ---
