@@ -50,19 +50,25 @@ ls articles/ articles/_drafts/ | sed 's/\.md$//' | sort -u > /tmp/have.txt
 
 ### 2-1. 使える情報源（2026-09-05 実測）
 
-この環境は egress が絞られている。**到達可能なのは実質 github.com だけ**。
+**WebSearch と WebFetch は経路が違う。WebSearch は全ドメインで使える。**
+WebFetch（直接 egress）だけが絞られている。両者を混同しないこと。
 
-| 情報源 | WebFetch | 用途 |
-|---|---|---|
-| `github.com/trending` | ✅ | 今ホットな OSS |
-| `github.com/<org>/<repo>/releases` | ✅ | 破壊的変更・新機能（**最重要**） |
-| `github.com/<org>/<repo>/issues?q=sort:comments-desc` | ✅ | 人が実際にハマっている箇所 |
-| zenn.dev / qiita.com | ❌ | ブロック。トレンド直接取得は不可 |
-| news.ycombinator.com | ❌ | ブロック |
-| nextjs.org / supabase.com / w3.org 等の公式ドキュメント | ❌ | ブロック |
+| ツール | 対象 | 可否 | 用途 |
+|---|---|---|---|
+| **WebSearch** | 全ドメイン | ✅ | **トレンド調査の主力**。Zenn / Qiita の人気タグもここで取れる |
+| WebFetch | `github.com` | ✅ | release notes / trending / issues（**一次ソースの引用元**） |
+| WebFetch | zenn.dev / qiita.com | ❌ | egress ブロック |
+| WebFetch | news.ycombinator.com | ❌ | egress ブロック |
+| WebFetch | nextjs.org / supabase.com / w3.org 等の公式ドキュメント | ❌ | egress ブロック |
 
-**ブロック済みホストに WebFetch を試して時間を溶かさないこと。**
-公式ドキュメントの一次ソースが要る場合は、GitHub 上の release notes / CHANGELOG / repo 内 docs を引用元にする。
+使い分け:
+
+- **何がホットか** を知る → WebSearch（Zenn / Qiita のトレンドはこちら）
+- **仕様・数値の裏取り** → WebFetch で github.com の release notes / CHANGELOG
+
+公式ドキュメントサイト本体は取得できないため、引用元 URL には GitHub 上の
+release notes / CHANGELOG / repo 内 docs を使う。
+**ブロック済みホストに WebFetch を繰り返して時間を溶かさないこと。**
 
 ### 2-2. スコアリング（満点 10 点、7 点以上で採用）
 

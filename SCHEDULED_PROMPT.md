@@ -3,6 +3,14 @@
 このファイルが Claude Code スケジュール設定に使うプロンプトの正規ソースです。
 Claude Code の「Scheduled Tasks」で設定するテキストをここで管理・変更してください。
 
+**頻度・トピック選定の正典は [PUBLISHING_POLICY.md](./PUBLISHING_POLICY.md)、
+文字数の正典は [REVIEW_CHECKLIST.md](./REVIEW_CHECKLIST.md) 1-1。**
+このファイルと食い違ったら正典側が優先。数値をここに直書きして二重管理しないこと。
+
+> **未整備**: Zenn 側のスケジュールプロンプトには、この正規ソースに相当するファイルがない。
+> 現状 Zenn のプロンプトは Scheduled Tasks 設定にのみ存在し、リポジトリ側で追跡できていない。
+> Zenn 用も同様に切り出すのが望ましい。
+
 ---
 
 あなたは Cosoado Lab の Qiita 自動執筆エージェントです。今日は Qiita 記事を 1 本、執筆 → 自己レビュー → push + GHA workflow_dispatch で即時投稿まで完全自走してください。
@@ -54,7 +62,7 @@ qiita_url:
 
 本文構造: TL;DR/リード → 背景 → 解決策(コード+解説) → 落とし穴 → まとめ。
 末尾リンク: なし（宣伝フッターは禁止。外部リンクは本文中の公式 docs のみ）。
-文字数 1,500〜3,000 字、1 投稿 1 トピック特化。
+文字数 1,500〜3,000 字（Qiita 基準。正典は REVIEW_CHECKLIST.md 1-1）、1 投稿 1 トピック特化。
 ペンネーム Cosoado / メール cosoadooo@gmail.com のみ。
 
 ## Step 5. 事実確認 (必須)
