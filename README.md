@@ -95,4 +95,15 @@ npx zenn preview
 ## 記事の単位ルール
 
 オーナー方針: **1 投稿 1 技術トピック**。詰めすぎず、部分部分で部分部分の技術にフォーカスする。
-記事ネタのバックログは [.company/marketing/strategies/zenn-qiita-calendar.md](https://github.com/Cosoado/cosoado-lab-articles) 側（private）で管理。
+
+## 投稿頻度とトピック選定
+
+**[PUBLISHING_POLICY.md](./PUBLISHING_POLICY.md) が正典。自動執筆エージェントは執筆前に必ず読む。**
+
+要約:
+
+- **頻度**: Zenn 週 1 本（最大週 2）。中 3 日以上空ける。1 実行 1 本。Zenn と Qiita の同日投稿は禁止
+- **凍結リスクの主因は頻度ではなく内容**（2026-06-07 の Qiita spam 判定は宣伝リンク羅列が原因）
+- **枯渇監視**: バックログ残 3 本以下で警告、0 本で執筆せず通知して終了（2026 年夏の 51 日停止の再発防止）
+- **トピック**: 一次体験 4 / 検索需要 3 / 鮮度 3 で採点し 7 点以上を採用。**一次体験 0 点は即却下**
+- **情報源**: この環境から到達できるのは実質 github.com のみ（zenn.dev / qiita.com / 各製品公式ドキュメントは egress ブロック）
