@@ -180,6 +180,17 @@ function checkSeoBody(body, addIssue) {
   // canonical / cross-post note
   const hasCanonicalNote = /(本記事は|cross-?post|canonical|同時掲載)/i.test(body);
   if (!hasCanonicalNote) addIssue('MINOR', 'No canonical / cross-post note found (recommended for SEO when cross-posting)');
+
+  // 2026-09-05: canonical 注記はあるが URL が入っていないケースを検出する。
+  // smooth-weighted-round-robin-rotation.md が「公開でき次第このブロックにリンクを
+  // 追記します」というプレースホルダのまま公開されていた (他 14 本は実 URL 入り)。
+  // cross-post の canonical が機能せず重複コンテンツ扱いになるため MAJOR。
+  const noteLines = body.split('\n')
+    .map(l => l.trim())
+    .filter(l => /^(>|本記事は)/.test(l) && /(本記事は|同時掲載|canonical|cross-?post)/i.test(l));
+  if (noteLines.length > 0 && !noteLines.some(l => /https?:\/\//.test(l))) {
+    addIssue('MAJOR', `Canonical note has no URL (placeholder left in?): "${noteLines[0].slice(0, 48)}…"`);
+  }
 }
 
 // 2026-06-07: Qiita が `supabase-cli-db-push-migration-flow` を spam 判定 (非公開化) +

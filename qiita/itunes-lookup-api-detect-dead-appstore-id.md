@@ -6,7 +6,7 @@ qiita_id: "867e7fe7998a58a02b15"
 qiita_url: "https://qiita.com/Cosoado/items/867e7fe7998a58a02b15"
 ---
 
-> Cosoado Lab Blog にも同時掲載予定です（公開でき次第このブロックにリンクを追記します）。
+> Cosoado Lab Blog 同時掲載予定: https://cosoado-lab.com/blog/itunes-lookup-api-detect-dead-appstore-id/
 
 自分でアプリの LP を運用している個人開発者向けの話です。
 
