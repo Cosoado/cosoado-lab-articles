@@ -29,17 +29,34 @@
 
 ## Qiita 用（howto・実装手順系）
 
-| slug | トピック | フォーカス |
-|---|---|---|
-| `github-actions-cron-replace-mac-launchd` | GitHub Actions cron で X bot を 12h ごとに回す（Mac launchd から移行） | CI |
-| `resend-domain-auth-30min` | Resend のドメイン認証を 30 分で完了させる手順 | email |
-| `qiita-zenn-cross-post-canonical` | Zenn と Qiita のクロスポストで canonical を破綻させない方法 | SEO |
-| `vercel-env-add-cli-bulk` | Vercel CLI で env var を一気に設定する小技 | CLI |
-| `supabase-cli-db-push-migration-flow` | Supabase CLI で db push 中心のマイグレーション運用 | DB |
-| `lucide-react-replace-emoji-icons` | lucide-react で UI から絵文字を排除する一貫したアイコン設計 | UI |
-| `nextjs-rsc-fetch-no-store-pitfall` | Next.js App Router で fetch の no-store / force-cache を間違えると静かに古いデータが出る話 | App Router |
-| `gh-secret-set-stdin-no-history` | GitHub Secret をシェル履歴に残さず登録する gh CLI のワンライナー | security |
-| `itunes-lookup-api-detect-dead-appstore-id` | iTunes Lookup API で LP のストアリンク切れを機械検出する | 運用 |
+### 公開済み（選定禁止）
+
+| slug | 公開日 |
+|---|---|
+| `github-actions-cron-replace-mac-launchd` | 2026-05-28 |
+| `resend-domain-auth-30min` | 2026-06-04 |
+| `qiita-zenn-cross-post-canonical` | 2026-06-25 |
+| `vercel-env-add-cli-bulk` | 2026-06-11 |
+| `supabase-cli-db-push-migration-flow` | 2026-05-14前後 |
+| `lucide-react-replace-emoji-icons` | 2026-06-18 |
+| `nextjs-rsc-fetch-no-store-pitfall` | 2026-05-19前後 |
+| `gh-secret-set-stdin-no-history` | 2026-05-21 |
+| `itunes-lookup-api-detect-dead-appstore-id` | 2026-08-19 |
+
+### 未執筆（ここから選ぶ）
+
+| slug | トピック | フォーカス | 根拠トレンド |
+|---|---|---|---|
+| `nextjs15-fetch-cache-migration` | Next.js 14→15 の fetch キャッシュ破壊的変更と最小移行チェックリスト | App Router | Next.js 15 GA、Qiita で移行記事が急増 |
+| `claude-code-personal-dev-loop` | Claude Code で個人開発のコード→レビュー→デプロイを自走させて1ヶ月経った話 | AI/個人開発 | ClaudeCodeタグがQiitaで急増中（2026年最熱） |
+| `hono-vercel-edge-api-split` | Next.js から重い API を Hono + Edge Functions に切り出す最小構成 | Edge/API | Hono が Express 後継として急速に普及 |
+| `supabase-pgvector-similarity-search` | Supabase pgvector で類似検索を 3 ステップで実装する（embedding 生成→保存→検索） | DB/AI | pgvector × Supabase 組み合わせが個人開発で定番化 |
+| `react19-use-hook-suspense` | React 19 の use() フックで Suspense + データ取得コードを半分に削る | React | React 19 stable リリース後の移行需要 |
+| `bun-shell-replace-npm-scripts` | npm scripts を Bun Shell に置き換えたら CI のインストールが 40 秒速くなった | Bun | Bun 1.x production 普及、比較記事が人気 |
+| `mcp-supabase-claude-code` | Claude Code に自分の Supabase を喋らせる MCP サーバーを 30 分で作る | MCP/AI | MCP が個人開発者にも広がりつつある |
+| `gha-claude-api-pr-review` | GitHub Actions + Claude API でプルリクの差分を自動レビューコメントする | AI/CI | AI × CI の自動化がQiitaで連続ヒット |
+| `supabase-realtime-presence` | Supabase Realtime Presence で「今オンラインのユーザー」を表示する | Realtime | Supabase Realtime 記事の需要が高い |
+| `vercel-speed-insights-lcp-fix` | Vercel Speed Insights で LCP ボトルネックを見つけて 3 秒→1 秒に改善した話 | パフォーマンス | Core Web Vitals × Vercel の組み合わせは安定需要 |
 
 ---
 
@@ -59,8 +76,22 @@
 残スロットが **3 本以下で警告、0 本で執筆せず通知して終了**（PUBLISHING_POLICY.md 1「下限」）。
 枯渇を検知したら、GitHub の release notes / trending / 高コメント issue から再収集して補充する。
 
+## 投稿ベストプラクティス（バン対策）
+
+| ルール | 理由 |
+|---|---|
+| **週 1 本まで**（現行の木曜スケジュールが最適） | 同一アカウントからの短期間連投は Qiita のスパム検知に引っかかるリスクがある |
+| **同じタグを 3 週連続させない** | タグ多様性がアカウントの評価に影響する |
+| **文字数 1,500〜3,000 字を目安** | 短すぎると低品質判定、長すぎると読了率が下がりエンゲージメント低下 |
+| **100/100 + Critical/Major 0 を厳守** | AI 生成っぽい文体が残ると Qiita の品質フィルタが反応する可能性がある |
+| **外部リンク必須（公式 docs 1 件以上）** | リンク構造がない記事はスパムとみなされやすい |
+
 ## 補充履歴
 
+- 2026-09-05: 再度ネタ切れ（全 9 件公開済み）のため 10 件補充。
+  トレンド分析（WebSearch）を実施し、2026 年 Qiita で急増中の
+  ClaudeCode・Hono・Next.js 15・pgvector・MCP タグから選定。
+  同時に投稿ベストプラクティスセクションを追加。
 - 2026-08-18: 初版 16 件が全て公開済み（ネタ切れ）になっていたため 8 件補充。
   執筆が 2026-06-29 で止まっていた直接の原因はバックログの枯渇で、
   仕組みの故障ではない。以後もここが空になったら同じ止まり方をする。
