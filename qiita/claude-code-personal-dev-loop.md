@@ -2,8 +2,8 @@
 title: "Claude Code で個人開発の「コード→レビュー→push」を自走させた話"
 tags: ["ClaudeCode", "個人開発", "AI", "自動化", "CLI"]
 published: true
-qiita_id:
-qiita_url:
+qiita_id: "6185750062af96e438df"
+qiita_url: "https://qiita.com/Cosoado/items/6185750062af96e438df"
 ---
 
 > Cosoado Lab Blog 同時掲載予定: https://cosoado-lab.com/blog/claude-code-personal-dev-loop/
