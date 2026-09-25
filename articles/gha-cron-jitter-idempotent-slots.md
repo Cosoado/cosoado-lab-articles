@@ -2,7 +2,7 @@
 title: "GitHub Actions cron は平気で遅れる。「1 スロット 3 発」で冪等に 1 回だけ実行する方法"
 emoji: "⏰"
 type: "tech"
-topics: ["githubactions", "cron", "ci", "個人開発", "idempotent"]
+topics: ["githubactions", "cron", "ci", "個人開発", "supabase"]
 published: true
 ---
 

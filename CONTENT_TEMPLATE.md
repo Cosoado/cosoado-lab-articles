@@ -22,7 +22,7 @@
 title: "30〜60 字のタイトル"
 emoji: "🎯"        # 1 文字の絵文字必須
 type: "tech"       # tech または idea
-topics: ["nextjs", "supabase", "vercel", "個人開発", "マルチテナント"]   # 1〜5
+topics: ["nextjs", "supabase", "vercel", "個人開発", "設計"]   # 1〜5。タグの選び方は下記
 published: false   # レビュー合格まで false
 ---
 ```
@@ -31,12 +31,26 @@ published: false   # レビュー合格まで false
 ```yaml
 ---
 title: "30〜60 字のタイトル"
-tags: ["Next.js", "Supabase", "Vercel", "個人開発", "マルチテナント"]   # 1〜5、大文字小文字を canonical 名に揃える
+tags: ["Next.js", "Supabase", "Vercel", "個人開発", "設計"]   # 1〜5、大文字小文字を canonical 名に揃える
 published: true    # GHA cron が拾う条件
 qiita_id:          # 投稿後にスクリプトが自動で書き戻す
 qiita_url:
 ---
 ```
+
+### タグの選び方（Zenn topics / Qiita tags）
+
+タグはタグページから記事を探す人の入口。**記事の内容を言い表す語ではなく、読者がフォローしている語を選ぶ。**
+
+- 使用件数 100 件未満のタグは使わない。`validate-articles.mjs` が Major にする
+  （例: Zenn `景表法` 1 件 / `idempotent` 1 件 / `マルチテナント` 40 件）
+- 新しいタグは先に件数を測る: `node scripts/measure-tags.mjs zenn:<topic> qiita:<tag>`
+  → `scripts/tag-stats.json` に書き込まれる
+- 5 個の配分: 大きい技術タグ 2〜3（例 `nextjs` 1 万件・`typescript` 1.7 万件）+ 記事の主題 1〜2 + `個人開発`
+- 記事の主題そのもののライブラリ名・サービス名で 100 件未満のもの（`satori` / `resend` など）は、
+  `tag-stats.json` の `exceptions` に理由を書いてから使う
+- note のハッシュタグも同じ考え方。`https://note.com/api/v2/hashtags/<語>` の `count` で件数が見える
+  （例: `#個人開発` 5.6 万件 / `#ClaudeCode` 6.6 万件 / `#アプリ開発` 2.5 万件）
 
 ## 3. 文体・トーン（最重要）
 

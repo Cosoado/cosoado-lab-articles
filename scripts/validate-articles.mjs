@@ -12,6 +12,7 @@
 //   2. SEO: タイトル長 / topics or tags 数 / 本文長 / 外部リンク有無
 //   3. Secret スキャン: API key, JWT, DB URL, 個人情報パターン
 //   4. クロスポスト: canonical 注記の有無（warn）
+//   5. タグの使用件数: scripts/tag-stats.json で min_count 未満・未計測なら Major
 
 import fs from 'node:fs';
 import path from 'node:path';
@@ -21,6 +22,41 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = path.resolve(__dirname, '..');
 
 const ALLOWED_EMAIL = 'cosoadooo@gmail.com';
+
+// Zenn topics / Qiita tags の使用件数 (node scripts/measure-tags.mjs で更新)。
+// 誰も検索しないタグ (例: Zenn の "景表法" 1 件 / "idempotent" 1 件) で記事が埋もれるのを防ぐ。
+const TAG_STATS = loadTagStats();
+
+function loadTagStats() {
+  const file = path.join(__dirname, 'tag-stats.json');
+  const isObject = v => v !== null && typeof v === 'object' && !Array.isArray(v);
+  let stats;
+  try {
+    stats = JSON.parse(fs.readFileSync(file, 'utf8'));
+  } catch (e) {
+    console.error(`scripts/tag-stats.json を読めない: ${e.message}`);
+    process.exit(1);
+  }
+  if (!isObject(stats)) {
+    console.error('scripts/tag-stats.json が壊れている: 中身がオブジェクトでない');
+    process.exit(1);
+  }
+  const isCount = v => Number.isInteger(v) && v >= 0;
+  const broken = [
+    !Number.isInteger(stats.min_count) && 'min_count が整数でない',
+    !isObject(stats.zenn) && 'zenn がオブジェクトでない',
+    !isObject(stats.qiita) && 'qiita がオブジェクトでない',
+    isObject(stats.zenn) && !Object.values(stats.zenn).every(isCount) && 'zenn に 0 以上の整数でない件数がある',
+    isObject(stats.qiita) && !Object.values(stats.qiita).every(isCount) && 'qiita に 0 以上の整数でない件数がある',
+    !(isObject(stats.exceptions) && isObject(stats.exceptions.zenn) && isObject(stats.exceptions.qiita)) &&
+      'exceptions.zenn / exceptions.qiita がオブジェクトでない',
+  ].filter(Boolean);
+  if (broken.length > 0) {
+    console.error(`scripts/tag-stats.json が壊れている: ${broken.join(' / ')}`);
+    process.exit(1);
+  }
+  return stats;
+}
 
 // 既知の secret/PII パターン（誤検出より見落とし防止優先）
 const SECRET_PATTERNS = [
@@ -112,6 +148,21 @@ function checkSecrets(text, addIssue) {
   }
 }
 
+function checkTagPopularity(kind, tags, addIssue) {
+  const counts = TAG_STATS[kind];
+  const exceptions = TAG_STATS.exceptions[kind];
+  for (const tag of tags) {
+    const key = kind === 'zenn' ? String(tag).toLowerCase() : String(tag);
+    if (Object.hasOwn(exceptions, key)) continue;
+    const n = counts[key];
+    if (n === undefined) {
+      addIssue('MAJOR', `${kind} tag "${tag}" is unmeasured (run: node scripts/measure-tags.mjs ${kind}:${tag})`);
+    } else if (n < TAG_STATS.min_count) {
+      addIssue('MAJOR', `${kind} tag "${tag}" has only ${n} articles (< ${TAG_STATS.min_count}); pick a tag people actually follow`);
+    }
+  }
+}
+
 function checkZennFrontmatter(meta, body, addIssue) {
   if (!meta) return addIssue('CRITICAL', 'Missing frontmatter');
   const required = ['title', 'emoji', 'type', 'topics', 'published'];
@@ -130,6 +181,7 @@ function checkZennFrontmatter(meta, body, addIssue) {
     const t = Array.isArray(meta.topics) ? meta.topics : [];
     if (t.length === 0) addIssue('MAJOR', 'topics is empty (lose tag-based discovery)');
     if (t.length > 5) addIssue('CRITICAL', `topics has ${t.length} items (Zenn limit is 5)`);
+    checkTagPopularity('zenn', t, addIssue);
   }
   if (meta.emoji) {
     const eLen = [...meta.emoji].length;
@@ -152,6 +204,7 @@ function checkQiitaFrontmatter(meta, body, addIssue) {
     const t = Array.isArray(meta.tags) ? meta.tags : [];
     if (t.length === 0) addIssue('MAJOR', 'tags is empty (lose Qiita tag-based discovery)');
     if (t.length > 5) addIssue('CRITICAL', `tags has ${t.length} items (Qiita limit is 5)`);
+    checkTagPopularity('qiita', t, addIssue);
   }
 }
 

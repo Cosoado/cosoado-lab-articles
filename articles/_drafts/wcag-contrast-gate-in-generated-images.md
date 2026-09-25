@@ -2,7 +2,7 @@
 title: "OGP 画像のコントラスト比を Pillow で出力前チェックし、WCAG 4.5:1 を割ったら生成を止める"
 emoji: "🎨"
 type: "tech"
-topics: ["python", "pillow", "wcag", "ogp", "個人開発"]
+topics: ["python", "pillow", "アクセシビリティ", "ogp", "個人開発"]
 published: false
 ---
 

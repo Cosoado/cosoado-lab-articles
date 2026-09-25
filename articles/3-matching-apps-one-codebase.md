@@ -2,7 +2,7 @@
 title: "1 つの env var で 3 つのマッチングアプリを量産した話 — Next.js × Supabase の現実的なマルチテナント"
 emoji: "🎯"
 type: "tech"
-topics: ["nextjs", "supabase", "vercel", "個人開発", "マルチテナント"]
+topics: ["nextjs", "supabase", "vercel", "個人開発", "設計"]
 published: true
 ---
 

@@ -1,6 +1,6 @@
 ---
 title: "lucide-react で絵文字アイコンを一掃する—App Router 統一アイコン設計 3 ステップ"
-tags: ["React", "Next.js", "lucide-react", "TypeScript", "個人開発"]
+tags: ["React", "Next.js", "JavaScript", "TypeScript", "個人開発"]
 published: true
 qiita_id: "c494f7a2061e56ccc0c0"
 qiita_url: "https://qiita.com/Cosoado/items/c494f7a2061e56ccc0c0"

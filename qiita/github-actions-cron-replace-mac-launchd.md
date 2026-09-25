@@ -1,6 +1,6 @@
 ---
 title: "GitHub Actions cron で X bot を 12h ごとに自動投稿する（Mac launchd からの移行）"
-tags: ["GitHubActions", "Python", "Twitter", "launchd", "個人開発"]
+tags: ["GitHubActions", "Python", "Twitter", "macOS", "個人開発"]
 published: true
 qiita_id: "77e1852e00d30a57146e"
 qiita_url: "https://qiita.com/Cosoado/items/77e1852e00d30a57146e"

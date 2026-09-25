@@ -2,7 +2,7 @@
 title: "App Router の opengraph-image.tsx でジャンル別 OG 画像を動的生成する"
 emoji: "🖼"
 type: "tech"
-topics: ["nextjs", "satori", "opengraph", "vercel", "個人開発"]
+topics: ["nextjs", "satori", "ogp", "vercel", "個人開発"]
 published: true
 ---
 

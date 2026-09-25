@@ -2,7 +2,7 @@
 title: "寿司用語辞典を作ったら、世の中の辞書アプリの schema が全部腐って見えてきた"
 emoji: "🍣"
 type: "tech"
-topics: ["設計", "個人開発", "schema", "i18n", "辞書"]
+topics: ["設計", "個人開発", "database", "i18n", "データモデリング"]
 published: true
 ---
 
