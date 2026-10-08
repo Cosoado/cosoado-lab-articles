@@ -2,8 +2,8 @@
 title: "Claude Code × Supabase MCP：30分の設定でスキーマ説明が不要になった"
 tags: ["ClaudeCode", "Supabase", "AI", "個人開発", "LLM"]
 published: true
-qiita_id:
-qiita_url:
+qiita_id: "d00f21303cbd1fad151b"
+qiita_url: "https://qiita.com/Cosoado/items/d00f21303cbd1fad151b"
 ---
 
 > Cosoado Lab Blog 同時掲載予定: https://cosoado-lab.com/blog/mcp-supabase-claude-code/
