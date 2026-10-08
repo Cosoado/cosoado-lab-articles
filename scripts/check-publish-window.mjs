@@ -53,8 +53,21 @@ function lastPublishedAt(dir) {
   return latest;
 }
 
+// 暦日 (JST) の差で数える。経過時間 (86400000ms 単位) で比べると、実行時刻が前回公開より
+// 数分早いだけで 6.99 日になり、7 日ちょうどの回が毎回「境界値」で SKIP されて公開が 1 日ずつ遅れる。
+const JST_OFFSET_MS = 9 * 3600000;
+function waitingDrafts(dir) {
+  const d = path.join(REPO_ROOT, dir, '_drafts');
+  if (!fs.existsSync(d)) return [];
+  return fs.readdirSync(d)
+    .filter(n => n.endsWith('.md'))
+    .map(n => n.slice(0, -3))
+    .filter(slug => !fs.existsSync(path.join(REPO_ROOT, dir, `${slug}.md`)));
+}
+
 function daysSince(date, now) {
-  return (now - date) / 86400000;
+  const day = d => Math.floor((d.getTime() + JST_OFFSET_MS) / 86400000);
+  return day(now) - day(date);
 }
 
 function main() {
@@ -84,7 +97,7 @@ function main() {
     const d = daysSince(own, now);
     if (d < MIN_DAYS_SAME_PLATFORM) {
       blockers.push(
-        `同一媒体 (${platform}) の前回公開から ${d.toFixed(1)} 日 ` +
+        `同一媒体 (${platform}) の前回公開から ${d} 日 ` +
         `(必要: ${MIN_DAYS_SAME_PLATFORM} 日 / 週 1 本)`);
     }
   }
@@ -93,7 +106,7 @@ function main() {
     const d = daysSince(o.at, now);
     if (d < MIN_DAYS_ANY_PLATFORM) {
       blockers.push(
-        `他媒体 (${o.platform}) の公開から ${d.toFixed(1)} 日 ` +
+        `他媒体 (${o.platform}) の公開から ${d} 日 ` +
         `(必要: ${MIN_DAYS_ANY_PLATFORM} 日 / 中 3 日・同日 1 媒体)`);
     }
   }
@@ -107,6 +120,11 @@ function main() {
   }
 
   console.log('\n判定: ✅ GO — 公開してよい');
+  const waiting = waitingDrafts(PLATFORM_DIR[platform]);
+  if (waiting.length) {
+    console.log(`\n公開待ちの下書き (${waiting.length} 本): 新規を書く前に、100/100 のものがあれば先に昇格すること`);
+    for (const w of waiting) console.log(`  - ${PLATFORM_DIR[platform]}/_drafts/${w}.md`);
+  }
   process.exit(0);
 }
 

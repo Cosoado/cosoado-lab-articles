@@ -1,0 +1,66 @@
+name: Pipeline health
+
+# 投稿が止まっていないかを毎日機械で確認し、異常があれば Issue を 1 本立てる (重複作成しない)。
+#   - 最終公開からの経過日数 / 公開待ち下書きの滞留 / バックログ残数
+#   - 異常なし → Issue があれば自動クローズ
+# 通知は GitHub の Issue 通知 (メール / モバイル) に乗る。
+
+on:
+  schedule:
+    - cron: '30 1 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pipeline-health
+  cancel-in-progress: false
+
+jobs:
+  health:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+      issues: write
+    steps:
+      - name: Checkout (full history for publish dates)
+        # actions/checkout@v4 — SHA pinned (qiita-publish.yml と同じ)
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Use Node.js 24 LTS
+        # actions/setup-node@v4 — SHA pinned (qiita-publish.yml と同じ)
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '24'
+
+      - name: Check pipeline health
+        id: health
+        run: |
+          set +e
+          node scripts/check-pipeline-health.mjs --markdown > health.md
+          echo "status=$?" >> "$GITHUB_OUTPUT"
+          cat health.md
+
+      - name: Open, update or close the health issue
+        env:
+          GH_TOKEN: ${{ github.token }}
+          STATUS: ${{ steps.health.outputs.status }}
+        run: |
+          set -euo pipefail
+          TITLE="投稿パイプライン要対応 (自動検知)"
+          NUM=$(gh issue list --state open --search "\"$TITLE\" in:title" --json number,title \
+                --jq "[.[] | select(.title==\"$TITLE\")][0].number // empty")
+          if [[ "$STATUS" != "0" ]]; then
+            if [[ -n "$NUM" ]]; then
+              gh issue edit "$NUM" --body-file health.md
+            else
+              gh issue create --title "$TITLE" --body-file health.md
+            fi
+          elif [[ -n "$NUM" ]]; then
+            gh issue close "$NUM" --comment "解消を確認したので自動クローズ。"
+          fi
