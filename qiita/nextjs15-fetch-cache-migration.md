@@ -2,8 +2,8 @@
 title: "Next.js 14→15 のfetch キャッシュ破壊的変更と最小移行チェックリスト"
 tags: ["Next.js", "AppRouter", "fetch", "キャッシュ", "個人開発"]
 published: true
-qiita_id:
-qiita_url:
+qiita_id: "e5156010b5bd14b8effd"
+qiita_url: "https://qiita.com/Cosoado/items/e5156010b5bd14b8effd"
 ---
 
 > Cosoado Lab Blog 同時掲載予定: https://cosoado-lab.com/blog/nextjs15-fetch-cache-migration/
