@@ -1,7 +1,7 @@
 ---
 title: "Next.js 14→15 のfetch キャッシュ破壊的変更と最小移行チェックリスト"
 tags: ["Next.js", "AppRouter", "fetch", "キャッシュ", "個人開発"]
-published: false
+published: true
 qiita_id:
 qiita_url:
 ---
