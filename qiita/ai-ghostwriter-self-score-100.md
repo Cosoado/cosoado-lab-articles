@@ -2,8 +2,8 @@
 title: "AIに4ヶ月ブログを書かせたら、19回とも自分に100点をつけていた"
 tags: ["生成AI", "ClaudeCode", "個人開発", "ポエム", "ブログ"]
 published: true
-qiita_id:
-qiita_url:
+qiita_id: "a2dc5614d769b68f84dd"
+qiita_url: "https://qiita.com/Cosoado/items/a2dc5614d769b68f84dd"
 ---
 
 > Cosoado Lab Blog 同時掲載予定: https://cosoado-lab.com/blog/ai-ghostwriter-self-score-100/
