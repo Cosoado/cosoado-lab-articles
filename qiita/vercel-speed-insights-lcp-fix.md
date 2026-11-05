@@ -2,8 +2,8 @@
 title: "Vercel Speed Insights で LCP ボトルネックを特定し 3 秒→1 秒に改善した4つの対処"
 tags: ["Vercel", "Next.js", "TypeScript", "個人開発", "SEO"]
 published: true
-qiita_id:
-qiita_url:
+qiita_id: "626e2bfe123580475abe"
+qiita_url: "https://qiita.com/Cosoado/items/626e2bfe123580475abe"
 ---
 
 > Cosoado Lab Blog 同時掲載予定: https://cosoado-lab.com/blog/vercel-speed-insights-lcp-fix/
