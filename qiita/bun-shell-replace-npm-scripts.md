@@ -2,8 +2,8 @@
 title: "npm scripts を Bun Shell に置き換えたら CI が 40 秒速くなった話"
 tags: ["Shell", "ShellScript", "CI", "TypeScript", "個人開発"]
 published: true
-qiita_id:
-qiita_url:
+qiita_id: "047c743a1f4a85b931cd"
+qiita_url: "https://qiita.com/Cosoado/items/047c743a1f4a85b931cd"
 ---
 
 > Cosoado Lab Blog 同時掲載予定: https://cosoado-lab.com/blog/bun-shell-replace-npm-scripts/
