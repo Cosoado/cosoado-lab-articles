@@ -2,8 +2,8 @@
 title: "React 19 の use() フックで非同期データ取得が 1/3 になった話"
 tags: ["React", "TypeScript", "Next.js", "AppRouter", "個人開発"]
 published: true
-qiita_id:
-qiita_url:
+qiita_id: "47e75fd62bdefa6b0a0c"
+qiita_url: "https://qiita.com/Cosoado/items/47e75fd62bdefa6b0a0c"
 ---
 
 > Cosoado Lab Blog 同時掲載予定: https://cosoado-lab.com/blog/react19-use-hook-suspense/
