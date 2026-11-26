@@ -2,8 +2,8 @@
 title: "Supabase pgvector で類似検索を 3 ステップで実装する（embedding 生成→保存→検索）"
 tags: ["Supabase", "PostgreSQL", "LLM", "AI", "個人開発"]
 published: true
-qiita_id:
-qiita_url:
+qiita_id: "b8fb68fd3d71e6831c4a"
+qiita_url: "https://qiita.com/Cosoado/items/b8fb68fd3d71e6831c4a"
 ---
 
 > Cosoado Lab Blog 同時掲載予定: https://cosoado-lab.com/blog/supabase-pgvector-similarity-search/
